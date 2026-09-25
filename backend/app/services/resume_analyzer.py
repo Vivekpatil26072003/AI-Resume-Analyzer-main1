@@ -1,5 +1,6 @@
 import json
 import os
+import re
 import sys
 from typing import List, Dict, Tuple
 
@@ -60,6 +61,33 @@ class ResumeAnalyzer:
         extracted_skills = extract_skills_from_text(extracted_text, self.skills_database)
         
         return extracted_skills, extracted_text
+
+    def extract_candidate_name(self, text: str) -> str:
+        """Extract the first plausible person name from resume text."""
+        ignored_lines = {
+            'resume', 'curriculum vitae', 'cv', 'professional summary',
+            'summary', 'objective', 'experience', 'education', 'skills',
+            'projects', 'certifications', 'contact'
+        }
+
+        for line in text.splitlines():
+            candidate = ' '.join(line.strip().split())
+            normalized = candidate.lower().rstrip(':')
+
+            if not candidate or normalized in ignored_lines:
+                continue
+            if '@' in candidate or 'http://' in normalized or 'https://' in normalized:
+                continue
+            if re.search(r'\+?\d[\d\s().-]{7,}', candidate):
+                continue
+            if len(candidate) > 60 or len(candidate.split()) > 5:
+                continue
+            if not re.fullmatch(r"[A-Za-z][A-Za-z.'-]*(?:\s+[A-Za-z][A-Za-z.'-]*){1,4}", candidate):
+                continue
+
+            return candidate
+
+        return ''
     
     def extract_skills_from_jd(self, job_description: str) -> List[str]:
         """

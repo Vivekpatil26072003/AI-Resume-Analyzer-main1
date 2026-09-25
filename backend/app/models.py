@@ -3,6 +3,7 @@ from typing import List, Optional
 
 
 class ResumeUploadResponse(BaseModel):
+    candidate_name: str
     candidate_skills: List[str]
     extracted_text: str
 

@@ -30,3 +30,42 @@
     @apply w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent resize-vertical;
   }
 }
+
+@media print {
+  @page {
+    margin: 1.5cm;
+  }
+
+  body {
+    background: white !important;
+  }
+
+  .result-page {
+    min-height: auto !important;
+    background: white !important;
+    color: black !important;
+  }
+
+  .result-header,
+  .print-actions,
+  .print-candidate-name {
+    display: none !important;
+  }
+
+  .print-candidate-name {
+    display: block !important;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+
+  .result-page .card {
+    break-inside: avoid;
+    box-shadow: none !important;
+  }
+
+  .result-page .max-h-64 {
+    max-height: none !important;
+    overflow: visible !important;
+  }
+}

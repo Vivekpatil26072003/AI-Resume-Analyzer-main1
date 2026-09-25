@@ -13,6 +13,8 @@ app = Flask(__name__)
 allowed_origins = [
     "http://localhost:3000", 
     "http://127.0.0.1:3000",
+    "http://localhost:3001",
+    "http://127.0.0.1:3001",
     "https://ai-resume-analyzer.netlify.app",
     "https://ai-resume-analyzer.vercel.app"
 ]
@@ -83,8 +85,10 @@ def upload_resume():
         candidate_skills, extracted_text = resume_analyzer.extract_skills_from_resume(
             file_content, file_extension
         )
+        candidate_name = resume_analyzer.extract_candidate_name(extracted_text)
         
         return jsonify({
+            "candidate_name": candidate_name,
             "candidate_skills": candidate_skills,
             "extracted_text": extracted_text[:500] + "..." if len(extracted_text) > 500 else extracted_text
         })

@@ -49,6 +49,7 @@ export default function HomePage() {
       // Store results in session storage and navigate to results page
       sessionStorage.setItem('analysisResults', JSON.stringify(analysisResponse));
       sessionStorage.setItem('extractedSkills', JSON.stringify(uploadResponse.candidate_skills));
+      sessionStorage.setItem('candidateName', uploadResponse.candidate_name);
       sessionStorage.setItem('jobDescription', jobDescription);
       sessionStorage.setItem('fileName', selectedFile.name);
 

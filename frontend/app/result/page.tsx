@@ -13,6 +13,7 @@ export default function ResultPage() {
   const [extractedSkills, setExtractedSkills] = useState<string[]>([]);
   const [jobDescription, setJobDescription] = useState('');
   const [fileName, setFileName] = useState('');
+  const [candidateName, setCandidateName] = useState('');
 
   useEffect(() => {
     // Retrieve data from session storage
@@ -20,6 +21,7 @@ export default function ResultPage() {
     const storedSkills = sessionStorage.getItem('extractedSkills');
     const storedJD = sessionStorage.getItem('jobDescription');
     const storedFileName = sessionStorage.getItem('fileName');
+    const storedCandidateName = sessionStorage.getItem('candidateName');
 
     if (!storedResults) {
       router.push('/');
@@ -31,6 +33,7 @@ export default function ResultPage() {
       setExtractedSkills(JSON.parse(storedSkills || '[]'));
       setJobDescription(storedJD || '');
       setFileName(storedFileName || '');
+      setCandidateName(storedCandidateName || '');
     } catch (error) {
       console.error('Error parsing stored data:', error);
       router.push('/');
@@ -55,13 +58,16 @@ export default function ResultPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
+    <div className="result-page min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
       <div className="container mx-auto px-4 py-8">
         {/* Header */}
         <div className="max-w-6xl mx-auto">
-          <div className="flex items-center justify-between mb-8">
+          <div className="result-header flex items-center justify-between mb-8">
             <div>
               <h1 className="text-3xl font-bold text-gray-900 mb-2">Analysis Results</h1>
+              {candidateName && (
+                <p className="text-xl font-semibold text-gray-800 mb-1">{candidateName}</p>
+              )}
               <p className="text-gray-600">
                 Resume: <span className="font-medium">{fileName}</span>
               </p>
@@ -189,7 +195,7 @@ export default function ResultPage() {
           </div>
 
           {/* Action Buttons */}
-          <div className="mt-8 text-center space-x-4">
+          <div className="print-actions mt-8 text-center space-x-4">
             <button
               onClick={handleNewAnalysis}
               className="btn-primary"
@@ -204,6 +210,7 @@ export default function ResultPage() {
             </button>
           </div>
         </div>
+        {candidateName && <p className="print-candidate-name">Resume Analysis: {candidateName}</p>}
       </div>
     </div>
   );

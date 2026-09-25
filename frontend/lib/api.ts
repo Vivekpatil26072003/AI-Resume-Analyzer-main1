@@ -20,6 +20,7 @@ export interface AnalysisResponse {
 }
 
 export interface ResumeUploadResponse {
+  candidate_name: string;
   candidate_skills: string[];
   extracted_text: string;
 }
