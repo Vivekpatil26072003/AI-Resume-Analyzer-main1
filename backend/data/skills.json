@@ -1,0 +1,74 @@
+{
+  "programming_languages": [
+    "Python", "JavaScript", "Java", "C++", "C#", "C", "Go", "Rust", "Swift", "Kotlin",
+    "TypeScript", "PHP", "Ruby", "Scala", "R", "MATLAB", "Perl", "Haskell", "Clojure",
+    "Elixir", "Dart", "Julia", "Lua", "Assembly", "COBOL", "Fortran", "Pascal", "Ada"
+  ],
+  "web_frameworks": [
+    "React", "Angular", "Vue.js", "Next.js", "Nuxt.js", "Svelte", "Ember.js", "Backbone.js",
+    "Django", "Flask", "FastAPI", "Express.js", "Spring Boot", "ASP.NET", "Laravel",
+    "Ruby on Rails", "Symfony", "CodeIgniter", "CakePHP", "Yii", "Zend", "Struts",
+    "Play Framework", "Grails", "Phoenix", "Gin", "Echo", "Fiber", "Chi", "Mux"
+  ],
+  "databases": [
+    "MySQL", "PostgreSQL", "MongoDB", "Redis", "SQLite", "Oracle", "SQL Server",
+    "MariaDB", "Cassandra", "CouchDB", "Neo4j", "InfluxDB", "Elasticsearch",
+    "DynamoDB", "Firebase", "Supabase", "PlanetScale", "CockroachDB", "TimescaleDB"
+  ],
+  "cloud_platforms": [
+    "AWS", "Azure", "Google Cloud", "DigitalOcean", "Heroku", "Vercel", "Netlify",
+    "Firebase", "Supabase", "Railway", "Render", "Fly.io", "Cloudflare", "Linode",
+    "Vultr", "Scaleway", "OVH", "Alibaba Cloud", "IBM Cloud", "Oracle Cloud"
+  ],
+  "devops_tools": [
+    "Docker", "Kubernetes", "Jenkins", "GitLab CI", "GitHub Actions", "CircleCI",
+    "Travis CI", "TeamCity", "Bamboo", "ArgoCD", "Terraform", "Ansible", "Chef",
+    "Puppet", "Salt", "Helm", "Istio", "Prometheus", "Grafana", "ELK Stack",
+    "Splunk", "Datadog", "New Relic", "AppDynamics", "Jaeger", "Zipkin"
+  ],
+  "version_control": [
+    "Git", "SVN", "Mercurial", "Perforce", "Bitbucket", "GitHub", "GitLab",
+    "Azure DevOps", "Gerrit", "Gitea", "Gogs"
+  ],
+  "mobile_development": [
+    "React Native", "Flutter", "Xamarin", "Ionic", "Cordova", "PhoneGap",
+    "NativeScript", "Kotlin Multiplatform", "SwiftUI", "Jetpack Compose"
+  ],
+  "ai_ml_tools": [
+    "TensorFlow", "PyTorch", "Scikit-learn", "Keras", "OpenCV", "Pandas", "NumPy",
+    "Matplotlib", "Seaborn", "Plotly", "Jupyter", "Hugging Face", "SpaCy", "NLTK",
+    "Gensim", "XGBoost", "LightGBM", "CatBoost", "FastAI", "MLflow", "Kubeflow"
+  ],
+  "testing_frameworks": [
+    "Jest", "Mocha", "Chai", "Cypress", "Playwright", "Selenium", "Puppeteer",
+    "JUnit", "TestNG", "Mockito", "PowerMock", "pytest", "unittest", "nose",
+    "Robot Framework", "Cucumber", "SpecFlow", "Behave", "Lettuce"
+  ],
+  "build_tools": [
+    "Webpack", "Vite", "Rollup", "Parcel", "Gulp", "Grunt", "Maven", "Gradle",
+    "Ant", "Make", "CMake", "Ninja", "Bazel", "Buck", "Pants", "Yarn", "npm"
+  ],
+  "monitoring_logging": [
+    "Prometheus", "Grafana", "ELK Stack", "Splunk", "Datadog", "New Relic",
+    "AppDynamics", "Jaeger", "Zipkin", "Logstash", "Fluentd", "Filebeat",
+    "Metricbeat", "Packetbeat", "Heartbeat", "Auditbeat", "Functionbeat"
+  ],
+  "security_tools": [
+    "OWASP ZAP", "Burp Suite", "Nmap", "Wireshark", "Metasploit", "Nessus",
+    "OpenVAS", "SonarQube", "Snyk", "Dependabot", "WhiteSource", "Black Duck",
+    "Checkmarx", "Veracode", "Fortify", "CodeQL", "Semgrep", "Bandit"
+  ],
+  "design_tools": [
+    "Figma", "Sketch", "Adobe XD", "InVision", "Zeplin", "Framer", "Principle",
+    "Protopie", "Origami Studio", "Flinto", "Marvel", "Balsamiq", "Axure RP"
+  ],
+  "project_management": [
+    "Jira", "Confluence", "Trello", "Asana", "Monday.com", "ClickUp", "Notion",
+    "Linear", "Shortcut", "Pivotal Tracker", "Basecamp", "TeamGantt", "Smartsheet"
+  ],
+  "communication_tools": [
+    "Slack", "Microsoft Teams", "Discord", "Zoom", "Google Meet", "Webex",
+    "Skype", "Telegram", "WhatsApp Business", "Signal", "Mattermost", "Rocket.Chat"
+  ]
+}
+
