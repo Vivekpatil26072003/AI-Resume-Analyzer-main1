@@ -206,14 +206,14 @@ The application uses a predefined skills database located in `backend/data/skill
 
 **Frontend (.env.local):**
 ```env
-NEXT_PUBLIC_API_URL=https://your-backend-url.herokuapp.com
+NEXT_PUBLIC_API_URL=https://YOUR-PUBLIC-BACKEND-URL
 ```
 
 **Backend (.env):**
 ```env
 FLASK_ENV=production
 FLASK_DEBUG=False
-CORS_ORIGINS=https://your-frontend-url.netlify.app
+CORS_ORIGINS=https://resume-ai-an.netlify.app
 ```
 
 ### Customization
@@ -229,7 +229,7 @@ CORS_ORIGINS=https://your-frontend-url.netlify.app
 1. Connect your GitHub repository to Netlify
 2. Build command: `npm run build` (automatically configured in netlify.toml)
 3. Publish directory: `out` (automatically configured in netlify.toml)
-4. Set environment variable: `NEXT_PUBLIC_API_URL=https://your-backend-url.herokuapp.com`
+4. Set the Netlify environment variable `NEXT_PUBLIC_API_URL` to the real public HTTPS URL of the deployed Flask backend.
 
 **For Heroku (Backend):**
 ```bash
@@ -291,6 +291,8 @@ If you encounter any issues or have questions:
 **Made with ❤️ for better job matching and career growth**
 #   a i - r e s u m e - a n a l y z e r 0 1 
  
- #   A I - R e s u m e - A n a l y z e r - m a i n 1  
- #   A I - R e s u m e - A n a l y z e r - m a i n 1  
+ #   A I - R e s u m e - A n a l y z e r - m a i n 1 
+ 
+ #   A I - R e s u m e - A n a l y z e r - m a i n 1 
+ 
  

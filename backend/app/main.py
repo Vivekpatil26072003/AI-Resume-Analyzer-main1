@@ -1,5 +1,7 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
+from werkzeug.exceptions import RequestEntityTooLarge
+import logging
 import os
 import sys
 
@@ -9,6 +11,21 @@ sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 from services.resume_analyzer import ResumeAnalyzer
 
 app = Flask(__name__)
+logger = logging.getLogger(__name__)
+
+try:
+    max_file_size = int(os.getenv("MAX_FILE_SIZE", str(10 * 1024 * 1024)))
+except ValueError:
+    max_file_size = 10 * 1024 * 1024
+
+app.config["MAX_CONTENT_LENGTH"] = max_file_size
+
+allowed_file_types = {
+    file_type.strip().lower()
+    for file_type in os.getenv("ALLOWED_FILE_TYPES", ".pdf,.docx").split(",")
+    if file_type.strip()
+}
+
 # Configure CORS for production
 allowed_origins = [
     "http://localhost:3000", 
@@ -22,7 +39,11 @@ allowed_origins = [
 
 # Add environment variable for custom origins
 if os.getenv("CORS_ORIGINS"):
-    allowed_origins.extend(os.getenv("CORS_ORIGINS").split(","))
+    allowed_origins.extend(
+        origin.strip()
+        for origin in os.getenv("CORS_ORIGINS", "").split(",")
+        if origin.strip()
+    )
 
 CORS(app, origins=allowed_origins, supports_credentials=True)
 
@@ -50,6 +71,11 @@ def health_check():
     return {"status": "healthy", "message": "AI Resume Analyzer API is running"}
 
 
+@app.errorhandler(RequestEntityTooLarge)
+def handle_file_too_large(error):
+    return jsonify({"error": "Uploaded file is too large"}), 413
+
+
 @app.route("/upload_resume", methods=["POST"])
 def upload_resume():
     """
@@ -71,7 +97,7 @@ def upload_resume():
             return jsonify({"error": "No file provided"}), 400
         
         file_extension = os.path.splitext(file.filename)[1].lower()
-        if file_extension not in ['.pdf', '.docx']:
+        if file_extension not in allowed_file_types:
             return jsonify({
                 "error": "Unsupported file format. Please upload PDF or DOCX files only."
             }), 400
@@ -94,8 +120,9 @@ def upload_resume():
             "extracted_text": extracted_text[:500] + "..." if len(extracted_text) > 500 else extracted_text
         })
         
-    except Exception as e:
-        return jsonify({"error": f"Error processing resume: {str(e)}"}), 500
+    except Exception:
+        logger.exception("Error processing resume upload")
+        return jsonify({"error": "Error processing resume"}), 500
 
 
 @app.route("/analyze", methods=["POST"])
@@ -110,23 +137,28 @@ def analyze_resume():
         Analysis results with match score and suggestions
     """
     try:
+        payload = request.get_json(silent=True)
+        if not payload:
+            return jsonify({"error": "Request body must be valid JSON"}), 400
+
         # Validate input
-        if not request.json.get("candidate_skills"):
+        if not payload.get("candidate_skills"):
             return jsonify({"error": "Candidate skills cannot be empty"}), 400
         
-        if not request.json.get("job_description"):
+        if not payload.get("job_description"):
             return jsonify({"error": "Job description cannot be empty"}), 400
         
         # Perform analysis
         analysis_result = resume_analyzer.analyze_match(
-            request.json["candidate_skills"], 
-            request.json["job_description"]
+            payload["candidate_skills"],
+            payload["job_description"]
         )
         
         return jsonify(analysis_result)
         
-    except Exception as e:
-        return jsonify({"error": f"Error analyzing resume: {str(e)}"}), 500
+    except Exception:
+        logger.exception("Error analyzing resume")
+        return jsonify({"error": "Error analyzing resume"}), 500
 
 
 @app.route("/skills")
@@ -140,10 +172,14 @@ def get_skills():
     try:
         skills = resume_analyzer.get_skills_by_category()
         return {"skills": skills}
-    except Exception as e:
-        return jsonify({"error": f"Error retrieving skills: {str(e)}"}), 500
+    except Exception:
+        logger.exception("Error retrieving skills")
+        return jsonify({"error": "Error retrieving skills"}), 500
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=8000, debug=True)
+    host = os.getenv("HOST", "0.0.0.0")
+    port = int(os.getenv("PORT", "8000"))
+    debug = os.getenv("FLASK_DEBUG", "false").lower() in {"1", "true", "yes", "on"}
+    app.run(host=host, port=port, debug=debug)
 

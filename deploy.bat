@@ -37,7 +37,7 @@ if %errorlevel% equ 0 (
     echo 2. Connect your GitHub repository
     echo 3. Build command: npm run build
     echo 4. Publish directory: out
-    echo 5. Set environment variable: NEXT_PUBLIC_API_URL=https://your-backend-url.herokuapp.com
+    echo 5. Set Netlify environment variable NEXT_PUBLIC_API_URL=https://YOUR-PUBLIC-BACKEND-URL
 ) else (
     echo ❌ Frontend build failed!
     pause

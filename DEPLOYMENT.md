@@ -17,7 +17,8 @@
 
 3. **Set environment variables:**
    - In Netlify dashboard, go to Site settings > Environment variables
-   - Add: `NEXT_PUBLIC_API_URL` = `https://your-backend-url.herokuapp.com`
+   - Add `NEXT_PUBLIC_API_URL` with the real public HTTPS URL of the deployed Flask backend.
+   - This variable is required during the Netlify build; do not use `localhost` or a placeholder URL.
 
 ### Option 2: Vercel (Alternative)
 
@@ -30,6 +31,30 @@
    - Add `NEXT_PUBLIC_API_URL` in Vercel dashboard
 
 ## 🔧 Backend Deployment
+
+### Render Deployment (Recommended)
+
+Create a Render **Web Service** connected to the repository with these settings:
+
+- Root Directory: leave blank (repository root)
+- Build Command: `pip install -r backend/requirements.txt`
+- Start Command: `cd backend && gunicorn app.main:app --bind 0.0.0.0:$PORT`
+- Python version: `3.11.6` from `runtime.txt`
+- Health Check Path: `/health`
+
+Set these Render environment variables:
+
+```env
+FLASK_ENV=production
+FLASK_DEBUG=False
+HOST=0.0.0.0
+RELOAD=False
+CORS_ORIGINS=https://resume-ai-an.netlify.app
+MAX_FILE_SIZE=10485760
+ALLOWED_FILE_TYPES=.pdf,.docx
+```
+
+Render supplies `PORT` automatically. After deployment, verify `https://YOUR-BACKEND-URL/health` returns HTTP 200. Then set the Netlify build environment variable `NEXT_PUBLIC_API_URL` to `https://YOUR-BACKEND-URL` and redeploy the frontend.
 
 ### Heroku Deployment
 
@@ -71,7 +96,7 @@ The 404 errors were caused by:
 
 ### Frontend (.env.local)
 ```env
-NEXT_PUBLIC_API_URL=https://your-backend-url.herokuapp.com
+NEXT_PUBLIC_API_URL=https://YOUR-PUBLIC-BACKEND-URL
 NEXT_PUBLIC_APP_NAME=AI Resume Analyzer
 NEXT_PUBLIC_APP_VERSION=1.0.0
 ```
@@ -80,8 +105,10 @@ NEXT_PUBLIC_APP_VERSION=1.0.0
 ```env
 FLASK_ENV=production
 FLASK_DEBUG=False
-CORS_ORIGINS=https://your-frontend-url.netlify.app
+CORS_ORIGINS=https://resume-ai-an.netlify.app
 ```
+
+`NEXT_PUBLIC_API_URL` is read while Next.js builds the static frontend. After changing it in Netlify, trigger a new deploy.
 
 ## 🔄 Update Process
 
