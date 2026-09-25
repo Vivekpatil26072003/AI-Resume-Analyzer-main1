@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Upload, FileText, Send } from 'lucide-react';
 import FileUpload from '@/components/FileUpload';
-import { uploadResume, analyzeResume, AnalysisRequest } from '@/lib/api';
+import { uploadResume, analyzeResume, getApiErrorMessage, AnalysisRequest } from '@/lib/api';
 
 export default function HomePage() {
   const router = useRouter();
@@ -54,8 +54,8 @@ export default function HomePage() {
       sessionStorage.setItem('fileName', selectedFile.name);
 
       router.push('/result');
-    } catch (err: any) {
-      setError(err.response?.data?.detail || err.message || 'An error occurred during analysis');
+    } catch (err: unknown) {
+      setError(getApiErrorMessage(err));
     } finally {
       setIsLoading(false);
     }
