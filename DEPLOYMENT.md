@@ -49,7 +49,7 @@ FLASK_ENV=production
 FLASK_DEBUG=False
 HOST=0.0.0.0
 RELOAD=False
-CORS_ORIGINS=https://resume-ai-an.netlify.app
+CORS_ORIGINS=https://resume-ai-an.netlify.app,https://ai-resume-analyzer-main001.netlify.app
 MAX_FILE_SIZE=10485760
 ALLOWED_FILE_TYPES=.pdf,.docx
 ```

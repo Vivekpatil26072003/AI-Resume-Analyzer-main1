@@ -213,7 +213,7 @@ NEXT_PUBLIC_API_URL=https://YOUR-PUBLIC-BACKEND-URL
 ```env
 FLASK_ENV=production
 FLASK_DEBUG=False
-CORS_ORIGINS=https://resume-ai-an.netlify.app
+CORS_ORIGINS=https://resume-ai-an.netlify.app,https://ai-resume-analyzer-main001.netlify.app
 ```
 
 ### Customization
