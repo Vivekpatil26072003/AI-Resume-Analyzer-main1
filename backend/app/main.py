@@ -15,6 +15,7 @@ allowed_origins = [
     "http://127.0.0.1:3000",
     "http://localhost:3001",
     "http://127.0.0.1:3001",
+    "https://resume-ai-an.netlify.app",
     "https://ai-resume-analyzer.netlify.app",
     "https://ai-resume-analyzer.vercel.app"
 ]
